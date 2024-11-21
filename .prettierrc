@@ -1,0 +1,33 @@
+{
+  "trailingComma": "all",
+  "tabWidth": 2,
+  "semi": false,
+  "singleQuote": true,
+  "printWidth": 100,
+  "plugins": ["@ianvs/prettier-plugin-sort-imports"],
+  "importOrder": [
+    "^react$",
+    "",
+    "^@/app(.*)$",
+    "",
+    "^@/components(.*)$",
+    "",
+    "^@/config(.*)$",
+    "",
+    "^@/features(.*)$",
+    "",
+    "^@/hooks(.*)$",
+    "",
+    "^@/lib(.*)$",
+    "",
+    "^@/styles(.*)$",
+    "",
+    "^@/types(.*)$",
+    "",
+    "^@/utils(.*)$",
+    "",
+    "^[../]",
+    "",
+    "^[./]"
+  ]
+}
