@@ -18,7 +18,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { Input } from '@/components/ui/form/input'
+import { Input } from '@/components/ui/input'
 
 const FormSchema = z.object({
   email: z.string().nonempty().max(255).email(),
@@ -31,23 +31,18 @@ const defaultValues: Partial<FormValues> = {
 }
 
 const ForgotPasswordForm = () => {
+  const form = useForm<FormValues>({
+    resolver: zodResolver(FormSchema),
+    mode: 'onSubmit',
+    defaultValues,
+  })
+
   return (
-    <Form
-      onSubmit={(values) => {
-        console.log(values)
-      }}
-      options={{
-        mode: 'onSubmit',
-        defaultValues,
-      }}
-      schema={FormSchema}
-    >
-      {({ register, formState }) => (
-        <>
-          <EmailField />
-          <SubmitButton />
-        </>
-      )}
+    <Form {...form}>
+      <form method="POST" noValidate className="space-y-4">
+        <EmailField />
+        <SubmitButton />
+      </form>
     </Form>
   )
 }

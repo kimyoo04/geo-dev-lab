@@ -19,7 +19,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { Input } from '@/components/ui/form/input'
+import { Input } from '@/components/ui/input'
 
 import { useAuth } from '@/hooks/use-auth'
 

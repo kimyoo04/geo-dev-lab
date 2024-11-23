@@ -1,6 +1,5 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
 import * as LabelPrimitive from '@radix-ui/react-label'
 import { Slot } from '@radix-ui/react-slot'
 import {
@@ -9,18 +8,15 @@ import {
   FieldPath,
   FieldValues,
   FormProvider,
-  SubmitHandler,
-  useForm,
   useFormContext,
-  UseFormProps,
-  UseFormReturn,
 } from 'react-hook-form'
-import { z, ZodType } from 'zod'
 import * as React from 'react'
+
+import { Label } from '@/components/ui/label'
 
 import { cn } from '@/utils/cn'
 
-import { Label } from './label'
+const Form = FormProvider
 
 type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
@@ -32,7 +28,7 @@ type FormFieldContextValue<
 const FormFieldContext = React.createContext<FormFieldContextValue>({} as FormFieldContextValue)
 
 const FormField = <
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
   ...props
@@ -131,7 +127,7 @@ const FormDescription = React.forwardRef<
     <p
       ref={ref}
       id={formDescriptionId}
-      className={cn('text-[0.8rem] text-muted-foreground', className)}
+      className={cn('text-sm text-muted-foreground', className)}
       {...props}
     />
   )
@@ -153,7 +149,7 @@ const FormMessage = React.forwardRef<
     <p
       ref={ref}
       id={formMessageId}
-      className={cn('text-[0.8rem] font-medium text-destructive', className)}
+      className={cn('text-sm font-medium text-destructive', className)}
       {...props}
     >
       {body}
@@ -162,44 +158,13 @@ const FormMessage = React.forwardRef<
 })
 FormMessage.displayName = 'FormMessage'
 
-type FormProps<TFormValues extends FieldValues, Schema> = {
-  onSubmit: SubmitHandler<TFormValues>
-  schema: Schema
-  className?: string
-  children: (methods: UseFormReturn<TFormValues>) => React.ReactNode
-  options?: UseFormProps<TFormValues>
-  id?: string
-}
-
-const Form = <
-  Schema extends ZodType<any, any, any>,
-  TFormValues extends FieldValues = z.infer<Schema>,
->({
-  onSubmit,
-  children,
-  className,
-  options,
-  id,
-  schema,
-}: FormProps<TFormValues, Schema>) => {
-  const form = useForm({ ...options, resolver: zodResolver(schema) })
-  return (
-    <FormProvider {...form}>
-      <form className={cn('space-y-6', className)} onSubmit={form.handleSubmit(onSubmit)} id={id}>
-        {children(form)}
-      </form>
-    </FormProvider>
-  )
-}
-
 export {
-  useFormField,
   Form,
-  FormProvider,
-  FormItem,
-  FormLabel,
   FormControl,
   FormDescription,
-  FormMessage,
   FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  useFormField,
 }

@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 import { ButtonLink } from '@/components/button-link'
+import { CountryFlagButton } from '@/components/country-flag-button'
 import { Description } from '@/components/description'
 import { SignInWith } from '@/components/signin-with'
 import { SiteLogo } from '@/components/site-logo'
@@ -34,6 +35,7 @@ export default function SignInPage() {
           <TextLink href="/auth/signup" className="underline hover:no-underline" translate="yes">
             dont_have_an_account_sign_up
           </TextLink>
+          <CountryFlagButton />
         </div>
       </div>
     </div>
