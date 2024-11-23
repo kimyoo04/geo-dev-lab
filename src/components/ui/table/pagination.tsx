@@ -3,7 +3,7 @@ import * as React from 'react'
 
 import { ButtonProps, buttonVariants } from '@/components/ui/button'
 
-import { cn } from '@/utils/cn'
+import { cn } from '@/utils'
 
 import { Link } from '../link'
 

@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { cn } from '@/utils/cn'
+import { cn } from '@/utils'
 
 interface SiteLogoProps extends React.SVGProps<SVGSVGElement> {}
 

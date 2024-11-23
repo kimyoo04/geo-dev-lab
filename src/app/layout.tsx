@@ -9,7 +9,7 @@ import { TailwindIndicator } from '@/components/tailwind-indicator'
 import { defaultLng } from '@/config/i18next.config'
 import { siteConfig } from '@/config/site'
 
-import { cn } from '@/utils/cn'
+import { cn } from '@/utils'
 
 import '@/styles/globals.css'
 

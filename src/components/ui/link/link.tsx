@@ -1,6 +1,6 @@
 import NextLink, { LinkProps as NextLinkProps } from 'next/link'
 
-import { cn } from '@/utils/cn'
+import { cn } from '@/utils'
 
 export type LinkProps = {
   className?: string

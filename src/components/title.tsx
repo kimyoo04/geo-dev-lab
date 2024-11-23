@@ -3,7 +3,7 @@
 import { useTranslation } from 'react-i18next'
 import * as React from 'react'
 
-import { cn } from '@/utils/cn'
+import { cn } from '@/utils'
 
 interface TitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
   text?: string

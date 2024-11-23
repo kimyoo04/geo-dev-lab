@@ -2,8 +2,9 @@
 
 import { promises as fs } from 'fs'
 import path from 'path'
-import { defaultLng } from '@/i18next.config'
 import { cookies } from 'next/headers'
+
+import { defaultLng } from '@/config/i18next.config'
 
 export interface Translation {
   t: (key: string) => string

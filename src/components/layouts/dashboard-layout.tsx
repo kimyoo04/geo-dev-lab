@@ -13,7 +13,7 @@ import { Spinner } from '@/components/ui/spinner'
 // import { AuthLoader, useLogout } from '@/lib/auth'
 // import { ROLES, useAuthorization } from '@/lib/authorization'
 
-import { cn } from '@/utils/cn'
+import { cn } from '@/utils'
 
 import {
   DropdownMenu,

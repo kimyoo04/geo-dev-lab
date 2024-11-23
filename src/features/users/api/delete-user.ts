@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-import { api } from '@/lib/api-client'
+import { api } from '@/lib'
 import { MutationConfig } from '@/lib/react-query'
 
 import { getUsersQueryOptions } from './get-users'

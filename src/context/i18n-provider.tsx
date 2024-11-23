@@ -6,7 +6,7 @@ import * as React from 'react'
 
 import { defaultNS } from '@/config/i18next.config'
 
-import i18n from '@/lib/i18next'
+import { i18n } from '@/lib'
 
 interface I18nProviderProps {
   children?: React.ReactNode

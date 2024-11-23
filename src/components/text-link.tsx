@@ -6,7 +6,7 @@ import * as React from 'react'
 
 import { LucideIcon, type LucideIconName } from '@/lib/lucide-icon'
 
-import { cn } from '@/utils/cn'
+import { cn } from '@/utils'
 
 interface TextLinkProps
   extends LinkProps,

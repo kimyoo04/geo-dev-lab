@@ -3,7 +3,7 @@ import * as React from 'react'
 
 import { BaseEntity } from '@/types/api'
 
-import { cn } from '@/utils/cn'
+import { cn } from '@/utils'
 
 import { TablePagination, TablePaginationProps } from './pagination'
 

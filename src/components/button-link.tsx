@@ -8,7 +8,7 @@ import { ButtonProps, buttonVariants } from '@/components/ui/button'
 
 import { LucideIcon, type LucideIconName } from '@/lib/lucide-icon'
 
-import { cn } from '@/utils/cn'
+import { cn } from '@/utils'
 
 interface ButtonLinkProps
   extends LinkProps,

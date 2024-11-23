@@ -8,7 +8,7 @@ export default function Home() {
         <p>app/page.tsx</p>
       </div>
       <div className="col-6 form-widget">
-        <Link href="/signin">sign in</Link>
+        <Link href="/auth/signin">sign in</Link>
       </div>
     </div>
   )

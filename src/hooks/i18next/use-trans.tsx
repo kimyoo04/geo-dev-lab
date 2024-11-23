@@ -90,7 +90,7 @@ const useTrans = () => {
 
       return options && sentence ? sentence : translated
     },
-    [],
+    [t],
   )
 
   return { trans }

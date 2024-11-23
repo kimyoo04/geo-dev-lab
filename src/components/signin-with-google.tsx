@@ -28,7 +28,7 @@ const SignInWithGoogle = ({ variant = 'outline', ...props }: SignInWithGooglePro
         options: {
           // A URL to send the user to after they are confirmed.
           // Don't forget to change the URL in supabase's email template.
-          redirectTo: process.env.NEXT_PUBLIC_APP_URL + `/api/auth/callback?next=${next}`,
+          redirectTo: process.env.NEXT_PUBLIC_URL + `/api/auth/callback?next=${next}`,
           // Google does not send out a refresh token by default,
           // so you will need to pass parameters like these to signInWithOAuth() in order to extract the provider_refresh_token:
           queryParams: {
@@ -45,8 +45,14 @@ const SignInWithGoogle = ({ variant = 'outline', ...props }: SignInWithGooglePro
   }
 
   return (
-    <Button type="button" variant={variant} onClick={onClick} {...props}>
-      <FcGoogle className="mr-2 size-4 min-w-4" />
+    <Button
+      className="flex justify-center align-middle"
+      type="button"
+      variant={variant}
+      onClick={onClick}
+      icon={<FcGoogle className="size-4" />}
+      {...props}
+    >
       {t('signin_with_google')}
     </Button>
   )

@@ -1,6 +1,6 @@
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
-import { api } from '@/lib/api-client'
+import { api } from '@/lib'
 import { QueryConfig } from '@/lib/react-query'
 
 import { Discussion, Meta } from '@/types/api'
