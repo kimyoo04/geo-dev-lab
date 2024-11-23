@@ -1,4 +1,6 @@
-import { Button } from '../ui/button'
+'use client'
+
+import { Button } from '@/components/ui/button'
 
 export const MainErrorFallback = () => {
   return (
