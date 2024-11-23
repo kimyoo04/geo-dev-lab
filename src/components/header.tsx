@@ -1,13 +1,10 @@
 'use client'
 
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden'
-import { usePathname, useSearchParams } from 'next/navigation'
 import * as React from 'react'
 
 import { MobileNavigation } from '@/components/mobile-navigation'
 import { Navigation } from '@/components/navigation'
-import { SearchForm } from '@/components/search-form'
-import { SearchFormDialog } from '@/components/search-form-dialog'
 import { SiteBrand } from '@/components/site-brand'
 import { Button } from '@/components/ui/button'
 import {
@@ -25,9 +22,6 @@ import { cn } from '@/utils'
 interface HeaderProps extends React.HTMLAttributes<HTMLElement> {}
 
 const Header = ({ className, ...props }: HeaderProps) => {
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
-
   return (
     <Sheet>
       <VisuallyHidden.Root>
@@ -56,22 +50,6 @@ const Header = ({ className, ...props }: HeaderProps) => {
           </SheetTrigger>
           <SiteBrand className="mr-6 hidden md:flex" />
           <Navigation />
-          <div className="ml-auto flex gap-2">
-            {pathname !== '/' ? (
-              <SearchForm
-                path="/search"
-                placeholder="search_text"
-                translate="yes"
-                values={{
-                  q: pathname?.startsWith('/search')
-                    ? ((searchParams.get('q') as string) ?? '')
-                    : '',
-                }}
-                className="hidden sm:flex"
-              />
-            ) : null}
-            {pathname !== '/' ? <SearchFormDialog className="sm:hidden" /> : null}
-          </div>
         </div>
       </header>
     </Sheet>
