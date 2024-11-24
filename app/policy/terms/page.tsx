@@ -1,7 +1,7 @@
 import * as React from 'react'
 
-import { Footer } from '@/widgets/footer'
-import { Header } from '@/widgets/header'
+import { Footer } from '@/modules/footer'
+import { Header } from '@/modules/header'
 
 export default function TermsPage() {
   return (

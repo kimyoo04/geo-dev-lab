@@ -3,6 +3,9 @@
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden'
 import * as React from 'react'
 
+import { MobileNavigation } from '@/modules/mobile-navigation'
+import { Navigation } from '@/modules/navigation'
+
 import { SiteBrand } from '@/shared/components/site-brand'
 import { Button } from '@/shared/components/ui/button'
 import {
@@ -14,9 +17,6 @@ import {
 } from '@/shared/components/ui/sheet'
 import { LucideIcon } from '@/shared/lib/lucide-icon'
 import { cn } from '@/shared/utils'
-
-import { MobileNavigation } from '@/widgets/mobile-navigation'
-import { Navigation } from '@/widgets/navigation'
 
 interface HeaderProps extends React.HTMLAttributes<HTMLElement> {}
 

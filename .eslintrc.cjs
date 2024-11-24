@@ -80,7 +80,7 @@ module.exports = {
                 from: [
                   './src/entities',
                   './src/features',
-                  './src/widgets',
+                  './src/modules',
                   './src/pages',
                   './src/app',
                   './app',
@@ -88,14 +88,14 @@ module.exports = {
               },
               {
                 target: './src/entities',
-                from: ['./src/features', './src/widgets', './src/pages', './src/app', './app'],
+                from: ['./src/features', './src/modules', './src/pages', './src/app', './app'],
               },
               {
                 target: './src/features',
-                from: ['./src/widgets', './src/pages', './src/app', './app'],
+                from: ['./src/modules', './src/pages', './src/app', './app'],
               },
               {
-                target: './src/widgets',
+                target: './src/modules',
                 from: ['./src/pages', './src/app', './app'],
               },
               {

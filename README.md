@@ -2,6 +2,8 @@
 
 ## 디렉토리 구조 (nextjs + FSD architecture)
 
+> 참고 - https://velog.io/@teo/fsd
+
 ```
 ├── app/                    # Next.js App Router (루트 디렉토리)
 │   ├── layout.tsx
@@ -19,6 +21,7 @@
     │   ├── auth/
     │   ├── post/
     │   └── user/
+    └── modules/         # 재사용 가능한 복잡한 UI 블록 (widgets)
     ├── pages/           # 페이지 컴포넌트
     ├── shared/          # 공통 유틸리티
     │   ├── api/         # Supabase 클라이언트 설정
@@ -28,5 +31,4 @@
     │   ├── lib/         # 외부 라이브러리 설정
     │   ├── types/       # 타입 정의
     │   └── utils/       # 유틸 함수
-    └── widgets/         # 재사용 가능한 복잡한 UI 블록
 ```
