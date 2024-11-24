@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 import * as React from 'react'
 
-import { createClient } from '@/shared/api/supabase/client'
 import { Button, ButtonProps } from '@/shared/components/ui/button'
 import { useAuth } from '@/shared/hooks/use-auth'
+import { createClient } from '@/shared/utils/supabase/client'
 
 interface SignOutButtonProps
   extends ButtonProps,

@@ -1,14 +1,14 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useForm, useFormContext } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 import { z } from 'zod'
 import * as React from 'react'
 
-import { createClient } from '@/shared/api/supabase/client'
+import { TextLink } from '@/shared/components/text-link'
 import { Button } from '@/shared/components/ui/button'
 import {
   Form,
@@ -21,28 +21,21 @@ import {
 } from '@/shared/components/ui/form'
 import { Input } from '@/shared/components/ui/input'
 import { useAuth } from '@/shared/hooks/use-auth'
+import { createClient } from '@/shared/utils/supabase/client'
 
-const FormSchema = z
-  .object({
-    email: z.string().nonempty().max(255).email(),
-    // If the password is larger than 72 chars, it will be truncated to the first 72 chars.
-    newPassword: z.string().nonempty().min(6).max(72),
-    confirmNewPassword: z.string().nonempty().min(6).max(72),
-  })
-  .refine((val) => val.newPassword === val.confirmNewPassword, {
-    path: ['confirmNewPassword'],
-    params: { i18n: 'invalid_confirm_password' },
-  })
+const FormSchema = z.object({
+  email: z.string().nonempty().max(255).email(),
+  password: z.string().nonempty().min(6).max(72),
+})
 
 type FormValues = z.infer<typeof FormSchema>
 
 const defaultValues: Partial<FormValues> = {
   email: '',
-  newPassword: '',
-  confirmNewPassword: '',
+  password: '',
 }
 
-const SignUpForm = () => {
+const SignInForm = () => {
   const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
     mode: 'onSubmit',
@@ -53,8 +46,7 @@ const SignUpForm = () => {
     <Form {...form}>
       <form method="POST" noValidate className="space-y-4">
         <EmailField />
-        <NewPasswordField />
-        <ConfirmNewPasswordField />
+        <PasswordField />
         <SubmitButton />
       </form>
     </Form>
@@ -82,63 +74,44 @@ const EmailField = () => {
               {...field}
             />
           </FormControl>
-          <FormMessage />
+          <FormMessage className="font-normal" />
         </FormItem>
       )}
     />
   )
 }
 
-const NewPasswordField = () => {
+const PasswordField = () => {
   const { t } = useTranslation()
   const { control } = useFormContext()
 
   return (
     <FormField
       control={control}
-      name="newPassword"
+      name="password"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{t('password')}</FormLabel>
+          <div className="flex items-center justify-between">
+            <FormLabel>{t('password')}</FormLabel>
+            <TextLink
+              href="/auth/forgot-password"
+              className="text-sm underline hover:no-underline"
+              translate="yes"
+            >
+              forgot_your_password
+            </TextLink>
+          </div>
           <FormControl>
             <Input
               type="password"
               autoCapitalize="none"
-              autoComplete="new-password"
+              autoComplete="current-password"
               autoCorrect="off"
               placeholder={t('password')}
               {...field}
             />
           </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  )
-}
-
-const ConfirmNewPasswordField = () => {
-  const { t } = useTranslation()
-  const { control } = useFormContext()
-
-  return (
-    <FormField
-      control={control}
-      name="confirmNewPassword"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>{t('confirm_password')}</FormLabel>
-          <FormControl>
-            <Input
-              type="password"
-              autoCapitalize="none"
-              autoComplete="new-password"
-              autoCorrect="off"
-              placeholder={t('confirm_password')}
-              {...field}
-            />
-          </FormControl>
-          <FormMessage />
+          <FormMessage className="font-normal" />
         </FormItem>
       )}
     />
@@ -146,6 +119,7 @@ const ConfirmNewPasswordField = () => {
 }
 
 const SubmitButton = () => {
+  const searchParams = useSearchParams()
   const router = useRouter()
   const { t } = useTranslation()
   const { handleSubmit, setError, getValues } = useFormContext()
@@ -157,30 +131,32 @@ const SubmitButton = () => {
     try {
       setIsSubmitting(true)
 
+      // if "next" is in param, use it as the redirect URL
+      const next = (searchParams?.get('next') as string) ?? '/space/home'
       const formValues = getValues()
 
       const supabase = createClient()
-      const signed = await supabase.auth.signUp({
+      const signed = await supabase.auth.signInWithPassword({
         email: formValues?.email,
-        password: formValues?.newPassword,
+        password: formValues?.password,
       })
       if (signed?.error) throw new Error(signed?.error?.message)
 
-      const unsigned = await supabase.auth.signOut()
-      if (unsigned?.error) throw new Error(unsigned?.error?.message)
+      setSession(signed?.data?.session)
+      setUser(signed?.data?.user)
 
-      setSession(null)
-      setUser(null)
-
-      toast.success(t('you_have_successfully_registered_as_a_member'))
+      toast.success(t('you_have_successfully_logged_in'))
 
       router.refresh()
-      router.replace('/auth/signin')
+      router.replace(next)
     } catch (e: unknown) {
       const err = (e as Error)?.message
-      if (err.startsWith('User already registered')) {
+      if (err.startsWith('Invalid login credentials')) {
         setError('email', {
-          message: t('user_already_registered'),
+          message: t('invalid_login_credentials'),
+        })
+        setError('password', {
+          message: t('invalid_login_credentials'),
         })
       } else {
         toast.error(err)
@@ -197,9 +173,9 @@ const SubmitButton = () => {
       disabled={isSubmitting}
       className="w-full"
     >
-      {t('signup')}
+      {t('signin')}
     </Button>
   )
 }
 
-export { SignUpForm }
+export { SignInForm }

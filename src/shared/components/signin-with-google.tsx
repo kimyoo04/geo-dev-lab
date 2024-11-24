@@ -6,8 +6,8 @@ import { FcGoogle } from 'react-icons/fc'
 import { toast } from 'sonner'
 import * as React from 'react'
 
-import { createClient } from '@/shared/api/supabase/client'
 import { Button, ButtonProps } from '@/shared/components/ui/button'
+import { createClient } from '@/shared/utils/supabase/client'
 
 interface SignInWithGoogleProps
   extends ButtonProps,

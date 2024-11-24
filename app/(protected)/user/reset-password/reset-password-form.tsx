@@ -8,7 +8,6 @@ import { toast } from 'sonner'
 import { z } from 'zod'
 import * as React from 'react'
 
-import { createClient } from '@/shared/api/supabase/client'
 import { Button } from '@/shared/components/ui/button'
 import {
   Form,
@@ -21,6 +20,7 @@ import {
 } from '@/shared/components/ui/form'
 import { Input } from '@/shared/components/ui/input'
 import { useAuth } from '@/shared/hooks/use-auth'
+import { createClient } from '@/shared/utils/supabase/client'
 
 const FormSchema = z
   .object({

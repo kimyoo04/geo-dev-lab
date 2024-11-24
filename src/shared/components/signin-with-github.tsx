@@ -6,8 +6,8 @@ import { FaGithub } from 'react-icons/fa'
 import { toast } from 'sonner'
 import * as React from 'react'
 
-import { createClient } from '@/shared/api/supabase/client'
 import { Button, ButtonProps } from '@/shared/components/ui/button'
+import { createClient } from '@/shared/utils/supabase/client'
 
 interface SignInWithGithubProps
   extends ButtonProps,
