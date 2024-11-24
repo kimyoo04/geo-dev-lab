@@ -1,4 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Noto+Serif+KR:wght@200..900&display=swap');
+@font-face {
+  font-family: 'Hahmlet';
+  src: url('/fonts/Hahmlet-VF-distilled.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('/fonts/NotoSansKR-VF-distilled.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Noto Serif';
+  src: url('/fonts/NotoSerifKR-VF-distilled.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/PretendardKR-VF-distilled.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+}
 
 @tailwind base;
 @tailwind components;

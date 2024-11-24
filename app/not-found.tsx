@@ -5,7 +5,7 @@ import { Error } from '@/shared/components/error'
 
 export default function NotFound() {
   return (
-    <div className="relative">
+    <div className="container relative">
       <ButtonLink
         href="/"
         className="absolute left-4 top-4 md:left-8 md:top-8"
