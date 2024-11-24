@@ -43,55 +43,74 @@ module.exports = {
           'error',
           {
             zones: [
-              // disables cross-feature imports:
-              // eg. src/features/discussions should not import from src/features/comments, etc.
+              // features 간의 교차 임포트 방지
               {
                 target: './src/features/auth',
                 from: './src/features',
                 except: ['./auth'],
               },
               {
-                target: './src/features/comments',
+                target: './src/features/comment',
                 from: './src/features',
-                except: ['./comments'],
+                except: ['./comment'],
               },
               {
-                target: './src/features/discussions',
+                target: './src/features/dashboard',
                 from: './src/features',
-                except: ['./discussions'],
+                except: ['./dashboard'],
               },
               {
-                target: './src/features/teams',
+                target: './src/features/post',
                 from: './src/features',
-                except: ['./teams'],
+                except: ['./post'],
               },
               {
-                target: './src/features/users',
+                target: './src/features/search',
                 from: './src/features',
-                except: ['./users'],
+                except: ['./search'],
               },
-              // enforce unidirectional codebase:
-
-              // e.g. src/app can import from src/features but not the other way around
+              {
+                target: './src/features/user',
+                from: './src/features',
+                except: ['./user'],
+              },
+              // shared 모듈은 최하위 계층으로 모든 상위 계층에서 접근 불가
+              {
+                target: './src/shared',
+                from: [
+                  './src/entities',
+                  './src/features',
+                  './src/widgets',
+                  './src/pages',
+                  './src/app',
+                  './app',
+                ],
+              },
+              {
+                target: './src/entities',
+                from: ['./src/features', './src/widgets', './src/pages', './src/app', './app'],
+              },
               {
                 target: './src/features',
-                from: './src/app',
+                from: ['./src/widgets', './src/pages', './src/app', './app'],
               },
-
-              // e.g src/features and src/app can import from these shared modules but not the other way around
               {
-                target: [
-                  './src/components',
-                  './src/hooks',
-                  './src/lib',
-                  './src/types',
-                  './src/utils',
-                ],
-                from: ['./src/features', './src/app'],
+                target: './src/widgets',
+                from: ['./src/pages', './src/app', './app'],
               },
+              {
+                target: './src/pages',
+                from: ['./src/app', './app'],
+              },
+              {
+                target: './src/app',
+                from: ['./app'],
+              },
+              // file based routing을 위한 ./app 폴더는 ./src/app, ./src/pages에서만 접근 가능
             ],
           },
         ],
+
         'import/no-cycle': 'error',
         'linebreak-style': ['error', 'unix'],
         'react/prop-types': 'off',

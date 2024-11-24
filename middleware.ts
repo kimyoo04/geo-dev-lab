@@ -1,5 +1,6 @@
-import { updateSession } from '@/supabase/middleware'
 import { type NextRequest } from 'next/server'
+
+import { updateSession } from '@/shared/api/supabase/middleware'
 
 export async function middleware(request: NextRequest) {
   // update user's auth session

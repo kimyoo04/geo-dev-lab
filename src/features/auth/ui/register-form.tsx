@@ -1,16 +1,14 @@
 'use client'
 
+// import { registerInputSchema, useRegister } from '@/shared/lib/auth'
 import NextLink from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import * as z from 'zod'
 import * as React from 'react'
 
-import { Button } from '@/components/ui/button'
-import { Form, Input, Label, Select, Switch } from '@/components/ui/form'
-
-// import { registerInputSchema, useRegister } from '@/lib/auth'
-
-import { Team } from '@/types/api'
+import { Button } from '@/shared/components/ui/button'
+import { Form, Input, Label, Select, Switch } from '@/shared/components/ui/form'
+import { Team } from '@/shared/types/api'
 
 type RegisterFormProps = {
   onSuccess: () => void

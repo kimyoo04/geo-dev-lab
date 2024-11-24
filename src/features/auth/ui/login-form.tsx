@@ -4,10 +4,10 @@ import NextLink from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import * as z from 'zod'
 
-import { Button } from '@/components/ui/button'
-import { Form, Input } from '@/components/ui/form'
+import { Button } from '@/shared/components/ui/button'
+import { Form, Input } from '@/shared/components/ui/form'
 
-// import { loginInputSchema, useLogin } from '@/lib/auth'
+// import { loginInputSchema, useLogin } from '@/shared/lib/auth'
 
 type LoginFormProps = {
   onSuccess: () => void
