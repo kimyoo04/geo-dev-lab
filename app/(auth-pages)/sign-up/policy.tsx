@@ -3,23 +3,18 @@
 import Link from 'next/link'
 import * as React from 'react'
 
-import { useTrans } from '@/shared/hooks/i18next'
-
 const Policy = () => {
-  const { trans } = useTrans()
-
   return (
     <p className="text-sm text-muted-foreground">
-      {trans('by_clicking_sign_up_you_agree_to_our_terms_of_service_and_privacy_policy', {
-        components: {
-          link1: (
-            <Link href="/policy/terms" className="text-primary underline hover:no-underline" />
-          ),
-          link2: (
-            <Link href="/policy/privacy" className="text-primary underline hover:no-underline" />
-          ),
-        },
-      })}
+      가입하기를 클릭하면{' '}
+      <Link href="/policy/terms" className="text-primary underline hover:no-underline">
+        서비스 약관
+      </Link>{' '}
+      및{' '}
+      <Link href="/policy/privacy" className="text-primary underline hover:no-underline">
+        개인정보 보호정책
+      </Link>
+      에 동의하게 됩니다.
     </p>
   )
 }

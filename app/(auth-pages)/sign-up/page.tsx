@@ -1,40 +1,55 @@
-import * as React from 'react'
+import Link from 'next/link'
 
-import { ButtonLink } from '@/shared/components/button-link'
-import { Description } from '@/shared/components/description'
-import { SiteLogo } from '@/shared/components/site-logo'
-import { TextLink } from '@/shared/components/text-link'
-import { Title } from '@/shared/components/title'
+import { FormMessage, Message } from '@/shared/components/form-message'
+import { SubmitButton } from '@/shared/components/submit-button'
+import { Input } from '@/shared/components/ui/input'
+import { Label } from '@/shared/components/ui/label'
+import { absoluteUrl } from '@/shared/utils'
 
+import { signUpAction } from '../../actions'
 import { Policy } from './policy'
-import { SignUpForm } from './signup-form'
 
-export default function SignUpPage() {
-  return (
-    <div className="container flex min-h-screen w-screen flex-col items-center justify-center py-8">
-      <ButtonLink
-        href="/auth/signin"
-        className="absolute right-4 top-4 md:right-8 md:top-8"
-        translate="yes"
-      >
-        signin
-      </ButtonLink>
-      <div className="mx-auto flex w-full max-w-[320px] flex-col justify-center space-y-6">
-        <div className="flex flex-col space-y-2 text-center">
-          <SiteLogo className="mx-auto size-12 min-w-12" />
-          <Title translate="yes">create_an_account</Title>
-          <Description translate="yes">enter_your_email_below_to_create_your_account</Description>
-        </div>
-        <div className="grid gap-6">
-          <SignUpForm />
-          <Policy />
-        </div>
-        <div className="flex items-center justify-between text-sm">
-          <TextLink href="/auth/signin" className="underline hover:no-underline" translate="yes">
-            already_have_an_account_sign_in
-          </TextLink>
-        </div>
+export default async function Signup(props: { searchParams: Promise<Message> }) {
+  const searchParams = await props.searchParams
+
+  if ('message' in searchParams) {
+    return (
+      <div className="flex h-screen w-full flex-1 items-center justify-center gap-2 p-4 sm:max-w-md">
+        <FormMessage message={searchParams} />
       </div>
-    </div>
+    )
+  }
+
+  return (
+    <form className="mx-auto flex w-72 min-w-72 flex-col">
+      <h1 className="text-2xl font-medium">회원가입</h1>
+      <p className="text text-sm text-foreground">
+        이미 계정이 있으신가요?{' '}
+        <Link className="font-medium text-primary underline" href={absoluteUrl('/sign-in')}>
+          로그인
+        </Link>
+      </p>
+      <div className="mt-8 flex flex-col gap-2 [&>input]:mb-3">
+        <Label htmlFor="email">이메일</Label>
+        <Input name="email" placeholder="you@example.com" required />
+
+        <Label htmlFor="password">비밀번호</Label>
+        <Input
+          type="password"
+          name="password"
+          placeholder="6글자 이상 입력해 주세요."
+          minLength={6}
+          required
+        />
+
+        <SubmitButton formAction={signUpAction} pendingText="Signing up...">
+          가입하기
+        </SubmitButton>
+
+        <FormMessage message={searchParams} />
+
+        <Policy />
+      </div>
+    </form>
   )
 }

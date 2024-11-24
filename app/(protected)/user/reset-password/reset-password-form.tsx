@@ -3,7 +3,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { useForm, useFormContext } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 import { z } from 'zod'
 import * as React from 'react'
@@ -12,7 +11,6 @@ import { Button } from '@/shared/components/ui/button'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -29,7 +27,7 @@ const FormSchema = z
   })
   .refine((val) => val.newPassword === val.confirmNewPassword, {
     path: ['confirmNewPassword'],
-    params: { i18n: 'invalid_confirm_password' },
+    message: '비밀번호가 일치하지 않습니다.',
   })
 
 type FormValues = z.infer<typeof FormSchema>
@@ -58,7 +56,6 @@ const ResetPasswordForm = () => {
 }
 
 const NewPasswordField = () => {
-  const { t } = useTranslation()
   const { control } = useFormContext()
 
   return (
@@ -67,14 +64,14 @@ const NewPasswordField = () => {
       name="newPassword"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{t('new_password')}</FormLabel>
+          <FormLabel>새 비밀번호</FormLabel>
           <FormControl>
             <Input
               type="password"
               autoCapitalize="none"
               autoComplete="new-password"
               autoCorrect="off"
-              placeholder={t('new_password')}
+              placeholder="새 비밀번호"
               {...field}
             />
           </FormControl>
@@ -86,7 +83,6 @@ const NewPasswordField = () => {
 }
 
 const ConfirmNewPasswordField = () => {
-  const { t } = useTranslation()
   const { control } = useFormContext()
 
   return (
@@ -95,14 +91,14 @@ const ConfirmNewPasswordField = () => {
       name="confirmNewPassword"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{t('confirm_new_password')}</FormLabel>
+          <FormLabel>{'새 비밀번호 확인'}</FormLabel>
           <FormControl>
             <Input
               type="password"
               autoCapitalize="none"
               autoComplete="new-password"
               autoCorrect="off"
-              placeholder={t('confirm_new_password')}
+              placeholder={'새 비밀번호 확인'}
               {...field}
             />
           </FormControl>
@@ -115,7 +111,6 @@ const ConfirmNewPasswordField = () => {
 
 const SubmitButton = () => {
   const router = useRouter()
-  const { t } = useTranslation()
   const { handleSubmit, setError, getValues } = useFormContext()
   const { setSession, setUser } = useAuth()
 
@@ -139,7 +134,7 @@ const SubmitButton = () => {
       setSession(null)
       setUser(null)
 
-      toast.success(t('changed_successfully'))
+      toast.success('성공적으로 변경되었습니다.')
 
       router.refresh()
       router.replace('/auth/signin')
@@ -147,7 +142,7 @@ const SubmitButton = () => {
       const err = (e as Error)?.message
       if (err.startsWith('New password should be different from the old password')) {
         setError('newPassword', {
-          message: t('new_password_should_be_different_from_the_old_password'),
+          message: '새 비밀번호는 이전 비밀번호와 달라야 합니다.',
         })
       } else {
         toast.error(err)
@@ -164,7 +159,7 @@ const SubmitButton = () => {
       disabled={isSubmitting}
       className="w-full"
     >
-      {t('change_password')}
+      비밀번호 변경
     </Button>
   )
 }

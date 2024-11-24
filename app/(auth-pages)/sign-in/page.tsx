@@ -1,41 +1,44 @@
-import * as React from 'react'
+import Link from 'next/link'
 
-import { ButtonLink } from '@/shared/components/button-link'
-import { Description } from '@/shared/components/description'
+import { FormMessage, Message } from '@/shared/components/form-message'
 import { SignInWith } from '@/shared/components/signin-with'
-import { SiteLogo } from '@/shared/components/site-logo'
-import { TextLink } from '@/shared/components/text-link'
-import { Title } from '@/shared/components/title'
+import { SubmitButton } from '@/shared/components/submit-button'
+import { Input } from '@/shared/components/ui/input'
+import { Label } from '@/shared/components/ui/label'
+import { absoluteUrl } from '@/shared/utils'
 
-import { SignInForm } from './signin-form'
+import { signInAction } from '../../actions'
 
-export default function SignInPage() {
+export default async function Signin(props: { searchParams: Promise<Message> }) {
+  const searchParams = await props.searchParams
   return (
-    <div className="container flex min-h-screen w-screen flex-col items-center justify-center py-8">
-      <ButtonLink
-        href="/"
-        className="absolute left-4 top-4 md:left-8 md:top-8"
-        startIconName="ChevronLeft"
-        translate="yes"
-      >
-        home
-      </ButtonLink>
-      <div className="mx-auto flex w-full max-w-[320px] flex-col justify-center space-y-6">
-        <div className="flex flex-col space-y-2 text-center">
-          <SiteLogo className="mx-auto size-12 min-w-12" />
-          <Title translate="yes">welcome_back</Title>
-          <Description translate="yes">enter_your_email_to_sign_in_to_your_account</Description>
+    <form className="flex w-72 min-w-72 flex-col">
+      <h1 className="text-2xl font-medium">로그인</h1>
+      <p className="text-sm text-foreground">
+        계정이 없으신가요?{' '}
+        <Link className="font-medium text-foreground underline" href={absoluteUrl('/sign-up')}>
+          회원가입
+        </Link>
+      </p>
+      <div className="mt-8 flex flex-col gap-2 [&>input]:mb-3">
+        <Label htmlFor="email">이메일</Label>
+        <Input name="email" placeholder="you@example.com" required />
+
+        <div className="flex items-center justify-between">
+          <Label htmlFor="password">비밀번호</Label>
+          <Link className="text-xs text-foreground underline" href="/forgot-password">
+            비밀번호를 잊으셨나요?
+          </Link>
         </div>
-        <div className="grid gap-6">
-          <SignInForm />
-          <SignInWith />
-        </div>
-        <div className="flex items-center justify-between text-sm">
-          <TextLink href="/auth/signup" className="underline hover:no-underline" translate="yes">
-            dont_have_an_account_sign_up
-          </TextLink>
-        </div>
+        <Input type="password" name="password" placeholder="6글자 이상 입력해 주세요." required />
+
+        <SubmitButton pendingText="로그인 중..." formAction={signInAction}>
+          로그인
+        </SubmitButton>
+
+        <FormMessage message={searchParams} />
       </div>
-    </div>
+      <SignInWith />
+    </form>
   )
 }

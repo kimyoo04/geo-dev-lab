@@ -1,19 +1,16 @@
-import * as React from 'react'
-
 import { ButtonLink } from '@/shared/components/button-link'
-import { Error } from '@/shared/components/error'
 
-export default function AuthCodeError() {
+export default async function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative">
+    <div className="flex max-w-7xl flex-1 flex-col justify-center">
       <ButtonLink
-        href="/auth/signin"
+        href="/"
         className="absolute left-4 top-4 md:left-8 md:top-8"
         startIconName="ChevronLeft"
       >
-        signin
+        홈으로
       </ButtonLink>
-      <Error status="500" />
+      {children}
     </div>
   )
 }

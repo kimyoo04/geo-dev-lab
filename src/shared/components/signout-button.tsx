@@ -1,7 +1,6 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 import * as React from 'react'
 
@@ -15,7 +14,6 @@ interface SignOutButtonProps
 
 const SignOutButton = (props: SignOutButtonProps) => {
   const router = useRouter()
-  const { t } = useTranslation()
   const { setSession, setUser } = useAuth()
 
   const onClick = async () => {
@@ -37,7 +35,7 @@ const SignOutButton = (props: SignOutButtonProps) => {
 
   return (
     <Button type="button" onClick={onClick} {...props}>
-      {t('signout')}
+      로그아웃
     </Button>
   )
 }

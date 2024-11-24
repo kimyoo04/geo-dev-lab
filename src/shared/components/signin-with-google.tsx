@@ -1,7 +1,6 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
-import { useTranslation } from 'react-i18next'
 import { FcGoogle } from 'react-icons/fc'
 import { toast } from 'sonner'
 import * as React from 'react'
@@ -14,13 +13,12 @@ interface SignInWithGoogleProps
     Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'> {}
 
 const SignInWithGoogle = ({ variant = 'outline', ...props }: SignInWithGoogleProps) => {
-  const { t } = useTranslation()
   const searchParams = useSearchParams()
 
   const onClick = async () => {
     try {
       // if "next" is in param, use it as the redirect URL
-      const next = (searchParams.get('next') as string) ?? '/dashboard'
+      const next = (searchParams?.get('next') as string) ?? '/home'
 
       const supabase = createClient()
       const signed = await supabase.auth.signInWithOAuth({
@@ -53,7 +51,7 @@ const SignInWithGoogle = ({ variant = 'outline', ...props }: SignInWithGooglePro
       icon={<FcGoogle className="size-4" />}
       {...props}
     >
-      {t('signin_with_google')}
+      sign in with Google
     </Button>
   )
 }

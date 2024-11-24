@@ -4,7 +4,6 @@ import { cookies } from 'next/headers'
 import * as React from 'react'
 
 import { TailwindIndicator } from '@/shared/components/tailwind-indicator'
-import { defaultLng } from '@/shared/config/i18next.config'
 import { siteConfig } from '@/shared/config/site'
 import { cn } from '@/shared/utils'
 
@@ -12,7 +11,6 @@ import '@/app/styles/globals.css'
 
 import { ErrorBoundary } from 'react-error-boundary'
 
-import { I18nProvider } from '@/app/providers/i18n-provider'
 import { TanstackProvider } from '@/app/providers/tanstack-provider'
 import { ThemeProvider } from '@/app/providers/theme-provider'
 
@@ -26,7 +24,7 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   manifest: '/manifest.json',
   verification: {
-    google: 'IxvN4WdPU9_KS-Tte2fenLPbVODRkNwhyqrXGx2rAJw',
+    // google: 'IxvN4WdPU9_KS-Tte2fenLPbVODRkNwhyqrXGx2rAJw',
     // other: { 'naver-site-verification': '' },
   },
 }
@@ -49,25 +47,26 @@ export default function RootLayout({
   children?: React.ReactNode
 }>) {
   const cookieStore = cookies()
-  const language = cookieStore.get('app:language')?.value || defaultLng
+  const language = cookieStore.get('app:language')?.value || 'ko'
   const theme = cookieStore.get('app:theme')?.value || 'system'
 
   return (
     <html lang={language} suppressHydrationWarning>
       <body className={cn('font-sans antialiased')}>
         <ErrorBoundary FallbackComponent={MainErrorFallback}>
-          <I18nProvider value={{ language }}>
-            <ThemeProvider value={{ theme }}>
-              <TanstackProvider>
-                <AuthProvider>
-                  <div id="__next">{children}</div>
-                  <Toaster richColors closeButton />
-                  {process.env.DEV ? <TailwindIndicator /> : null}
-                  {process.env.NODE_ENV === 'production' ? <Analytics /> : null}
-                </AuthProvider>
-              </TanstackProvider>
-            </ThemeProvider>
-          </I18nProvider>
+          <ThemeProvider value={{ theme }}>
+            <TanstackProvider>
+              <AuthProvider>
+                <div id="__next" className="flex min-h-screen flex-col items-center">
+                  {children}
+                </div>
+
+                <Toaster richColors closeButton />
+                {process.env.NODE_ENV === 'development' ? <TailwindIndicator /> : null}
+                {process.env.NODE_ENV === 'production' ? <Analytics /> : null}
+              </AuthProvider>
+            </TanstackProvider>
+          </ThemeProvider>
         </ErrorBoundary>
       </body>
     </html>

@@ -1,24 +1,13 @@
-'use client'
-
-import { useTranslation } from 'react-i18next'
 import * as React from 'react'
 
 import { cn } from '@/shared/utils'
 
-interface TitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
-  text?: string
-  ns?: string
-}
+interface TitleProps extends React.HTMLAttributes<HTMLHeadingElement> {}
 
-const Title = ({ children, className, translate, text, ns, ...props }: TitleProps) => {
-  const { t } = useTranslation()
-
+const Title = ({ children, className, ...props }: TitleProps) => {
   return (
     <h2 className={cn('text-2xl font-semibold tracking-tight', className)} {...props}>
-      {text && translate === 'yes' ? t(text, { ns }) : text}
-      {children && typeof children === 'string' && translate === 'yes'
-        ? t(children, { ns })
-        : children}
+      {children}
     </h2>
   )
 }

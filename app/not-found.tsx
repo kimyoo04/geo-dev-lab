@@ -10,9 +10,8 @@ export default function NotFound() {
         href="/"
         className="absolute left-4 top-4 md:left-8 md:top-8"
         startIconName="ChevronLeft"
-        translate="yes"
       >
-        home
+        홈으로
       </ButtonLink>
       <Error status="404" />
     </div>

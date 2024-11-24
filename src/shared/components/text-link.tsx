@@ -1,7 +1,6 @@
 'use client'
 
 import Link, { type LinkProps } from 'next/link'
-import { useTranslation } from 'react-i18next'
 import * as React from 'react'
 
 import { LucideIcon, type LucideIconName } from '@/shared/lib/lucide-icon'
@@ -14,23 +13,11 @@ interface TextLinkProps
   startIconClassName?: string
   endIconName?: LucideIconName
   endIconClassName?: string
-  text?: string
-  ns?: string
 }
 
 const TextLink = React.forwardRef<HTMLAnchorElement, TextLinkProps>((props, ref) => {
-  const {
-    children,
-    startIconName,
-    startIconClassName,
-    endIconName,
-    endIconClassName,
-    text,
-    translate,
-    ns,
-    ...rest
-  } = props
-  const { t } = useTranslation()
+  const { children, startIconName, startIconClassName, endIconName, endIconClassName, ...rest } =
+    props
 
   return (
     <Link ref={ref} {...rest}>
@@ -40,10 +27,7 @@ const TextLink = React.forwardRef<HTMLAnchorElement, TextLinkProps>((props, ref)
           className={cn('mr-2 size-4 min-w-4', startIconClassName)}
         />
       ) : null}
-      {text && translate === 'yes' ? t(text, { ns }) : text}
-      {children && typeof children === 'string' && translate === 'yes'
-        ? t(children, { ns })
-        : children}
+      {children}
       {endIconName ? (
         <LucideIcon name={endIconName} className={cn('ml-2 size-4 min-w-4', endIconClassName)} />
       ) : null}

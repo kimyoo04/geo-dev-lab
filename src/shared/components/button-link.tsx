@@ -1,7 +1,4 @@
-'use client'
-
 import Link, { type LinkProps } from 'next/link'
-import { useTranslation } from 'react-i18next'
 import * as React from 'react'
 
 import { ButtonProps, buttonVariants } from '@/shared/components/ui/button'
@@ -15,8 +12,6 @@ interface ButtonLinkProps
   startIconClassName?: string
   endIconName?: LucideIconName
   endIconClassName?: string
-  text?: string
-  ns?: string
   variant?: ButtonProps['variant']
 }
 
@@ -28,13 +23,9 @@ const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>((props, 
     startIconClassName,
     endIconName,
     endIconClassName,
-    text,
-    translate,
-    ns,
     variant = 'ghost',
     ...rest
   } = props
-  const { t } = useTranslation()
 
   return (
     <Link ref={ref} className={cn(buttonVariants({ variant }), className)} {...rest}>
@@ -44,10 +35,7 @@ const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>((props, 
           className={cn('mr-2 size-4 min-w-4', startIconClassName)}
         />
       ) : null}
-      {text && translate === 'yes' ? t(text, { ns }) : text}
-      {children && typeof children === 'string' && translate === 'yes'
-        ? t(children, { ns })
-        : children}
+      {children}
       {endIconName ? (
         <LucideIcon name={endIconName} className={cn('ml-2 size-4 min-w-4', endIconClassName)} />
       ) : null}

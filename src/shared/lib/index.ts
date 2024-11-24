@@ -1,6 +1,5 @@
 export * from './api-client'
 export * from './emblor'
-export * from './i18next'
 export * from './lucide-icon'
 export * from './react-query'
 export * from './slugify'
