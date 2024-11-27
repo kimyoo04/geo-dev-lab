@@ -67,7 +67,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 href={item.to}
                 className={cn(
                   'text-gray-300 hover:bg-gray-700 hover:text-white',
-                  'group flex flex-1 w-full items-center rounded-md p-2 text-base font-medium',
+                  'group flex w-full flex-1 items-center rounded-md p-2 text-base font-medium',
                   isActive && 'bg-gray-900 text-white',
                 )}
               >
@@ -104,7 +104,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                       href={item.to}
                       className={cn(
                         'text-gray-300 hover:bg-gray-700 hover:text-white',
-                        'group flex flex-1 w-full items-center rounded-md p-2 text-base font-medium',
+                        'group flex w-full flex-1 items-center rounded-md p-2 text-base font-medium',
                         isActive && 'bg-gray-900 text-white',
                       )}
                     >
@@ -138,7 +138,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
-                className={cn('block px-4 py-2 text-sm text-gray-700 w-full')}
+                className={cn('block w-full px-4 py-2 text-sm text-gray-700')}
                 // onClick={() => logout.mutate({})}
               >
                 Sign Out
