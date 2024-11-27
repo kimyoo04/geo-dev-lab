@@ -32,3 +32,5 @@
     │   ├── types/       # 타입 정의
     │   └── utils/       # 유틸 함수
 ```
+
+- [github labels 한번에 적용하기](https://velog.io/@rimo09/Github-github-label-%ED%95%9C%EB%B2%88%EC%97%90-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0)
